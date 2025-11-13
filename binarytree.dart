@@ -22,6 +22,47 @@ class Binarytree {
     }
   }
 
+  //make search funtion
+  Node? search(Node? root, int value) {
+    if (root == null) return null;
+    if (root.value == value) {
+      print("value Found :");
+      return root.value;
+    }
+    Node? leftSearch = search(root.left, value);
+    if (leftSearch != null) return leftSearch;
+    return search(root.right, value);
+  }
+
+  //find the height of the tree.
+  int height(Node? root) {
+    if (root == null) return 0;
+    int leftresult = height(root.left);
+    int rightresult = height(root.right);
+    return 1 + (leftresult > rightresult ? leftresult : rightresult);
+  }
+
+  //count the nodes of the function
+  int countNode(Node? root) {
+    if (root == null) return 0;
+    return 1 + countNode(root.left) + countNode(root.right);
+  }
+
+  // ✅ Function to check if a node is leaf
+  bool isLeaf(Node node) {
+    return node.left == null && node.right == null;
+  }
+
+  // ✅ Function to check if given value is a leaf node
+  bool? isLeafNode(Node? root, int value) {
+    Node? foundNode = search(root, value);
+    if (foundNode == null) {
+      print("Value not found in tree");
+      return null;
+    }
+    return isLeaf(foundNode);
+  }
+
   //make a functionto add value in the right side of the parent node
   void rightchild(Node parent, int value) {
     if (parent != null) {
@@ -67,11 +108,17 @@ void main() {
   //this node will overrite the previous node :00
   tree.leftchild(tree.root!.right!, 11);
   // tree.leftchild(tree.root!.left!, 3);
-  print("InorderTraversal:");
-  tree.inorderTraversal(tree.root);
-  print("PostorderTraversal:");
-  tree.postorderTraversal(tree.root);
-  print("preordreTraversal:");
-  tree.preorderTraversal(tree.root);
+  // print("InorderTraversal:");
+  // tree.inorderTraversal(tree.root);
+  // print("PostorderTraversal:");
+  // tree.postorderTraversal(tree.root);
+  // print("preordreTraversal:");
+  // tree.preorderTraversal(tree.root);
+  print(tree.search(tree.root, 11));
+
+  print(tree.height(tree.root));
+
+  print(tree.countNode(tree.root));
 }
 //note : the inner left and right  will decide that where to go and the outer will decide where to place 
+//level order traversal 
