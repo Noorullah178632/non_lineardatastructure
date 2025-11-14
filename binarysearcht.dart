@@ -85,12 +85,26 @@ class Binarysearchtree {
     if (parent == null) {
       return null;
     }
-    //it will move to the if condtion if the
+    //it will move to the "if condtion" if the value is lesser or greater then the parent value other wise it will move to the else condition
+
     if (parent.value > value) {
       parent.left = deleteNode(parent.left, value);
     } else if (parent.value < value) {
       parent.right = deleteNode(parent.right, value);
-    } else {}
+    } else {
+      //1:let suppose we want to delete 20 and it doesnt have any child , then we will apply this
+      if (parent.left == null && parent.right == null) {
+        return null;
+      }
+      //2:let suppose 20 has one child
+      if (parent.left == null) return parent.right;
+      if (parent.right == null) return parent.left;
+      //3:let suppose 20 has two children
+      Node temp = findMin(parent.right!);
+      parent.value = temp.value;
+      parent.right = deleteNode(parent.right, temp.value);
+    }
+    return parent;
   }
 
   //how to find height of the tree.
