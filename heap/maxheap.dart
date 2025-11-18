@@ -1,5 +1,6 @@
 class Maxheap {
   List<int> heap = [];
+  List<int> array = [5, 77, 12, 34, 56, 66, 43, 16, 11];
   //make a iinsert function
   void insert(int value) {
     heap.add(value);
@@ -52,6 +53,44 @@ class Maxheap {
     }
   }
 
+  //get max
+  void getMax() {
+    if (heap.isEmpty) {
+      return print("heap is null");
+    } else {
+      int a = heap[0];
+      print("Max Value of the heap is $a");
+    }
+  }
+
+  // Build heap from any array
+  void buildHeap(List<int> array) {
+    heap = List.from(array); // copy array into heap
+    int n = heap.length;
+    for (int i = (n ~/ 2) - 1; i >= 0; i--) {
+      heapifyDown(i);
+    }
+  }
+
+  // //heapify down for buildheap
+  // void heapifyDownHeap(List array, int index, int n) {
+  //   int largest = index;
+  //   int left = 2 * index + 1;
+  //   int right = 2 * index + 2;
+  //   if (left < n && array[left] > array[largest]) {
+  //     largest = left;
+  //   }
+  //   if (right < n && array[right] > array[largest]) {
+  //     largest = right;
+  //   }
+  //   if (largest != index) {
+  //     int temp = array[index];
+  //     array[index] = array[largest];
+  //     array[largest] = temp;
+  //     heapifyDownHeap(array, largest, n);
+  //   }
+  // }
+
   //show the whole list of the max heap
   void showlist() {
     print(heap);
@@ -60,11 +99,15 @@ class Maxheap {
 
 void main() {
   Maxheap node = Maxheap();
+  List<int> array = [5, 77, 12, 34, 56, 66, 43, 16, 11];
   node.insert(30);
   node.insert(40);
   node.insert(25);
   node.insert(50);
   node.showlist();
   node.deleteMax();
+  node.showlist();
+  node.buildHeap(array);
+  print("Max Heap");
   node.showlist();
 }
